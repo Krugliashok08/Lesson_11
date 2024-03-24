@@ -16,36 +16,39 @@
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.14.3</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-chrome-driver</artifactId>
+      <version>3.141.59</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.6</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
-</project>
 
-<dependencies>
+        <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<dependency>
+<suite name="TestSuite">
 
-  <groupId>org.junit.jupiter</groupId>
+<test name="Test">
 
-  <artifactId>junit-jupiter-api</artifactId>
+  <classes>
 
-  <version>5.8.1</version>
+    <class name="FactorialTestng"/>
 
-  <scope>test</scope>
+  </classes>
 
-</dependency>
+</test>
 
-<dependency>
-
-  <groupId>org.seleniumhq.selenium</groupId>
-
-  <artifactId>selenium-java</artifactId>
-
-  <version>4.1.0</version>
-
-</dependency>
-
-</dependencies>
+</suite>
