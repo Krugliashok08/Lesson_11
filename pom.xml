@@ -9,46 +9,23 @@
 
   <name>Lesson_11_maven1</name>
   <url>http://maven.apache.org</url>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-      <version>6.14.3</version>
+      <version>7.9.0</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-chrome-driver</artifactId>
-      <version>3.141.59</version>
+      <groupId>com.beust</groupId>
+      <artifactId>jcommander</artifactId>
+      <version>1.81</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.6</version>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+      <version>3.5.1</version>
       <scope>test</scope>
     </dependency>
-  </dependencies>
-
-        <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-
-<suite name="TestSuite">
-
-<test name="Test">
-
-  <classes>
-
-    <class name="FactorialTestng"/>
-
-  </classes>
-
-</test>
-
-</suite>
+    <dependency>
