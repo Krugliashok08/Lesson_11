@@ -11,7 +11,7 @@ public class FactorialTest {
     }
 
     @Test
-    void testFactorialWithCondition() {
+    void testFactorialCondition() {
         assertEquals(120, Factorial.FactorialCondition(5, true));
         assertEquals(24, Factorial.FactorialCondition(5, false));
     }
