@@ -1,42 +1,58 @@
 package org.example;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 public class TestMTC {
-    public static void main(String[] args) {
     WEbDriver driver;
-    WebDriverManager.chromedriver().clearDriverCach().setup();
-    driver = new ChromeDriver();
-    driver.manage().window().maximize();
-    driver.get("https://www.mts.by/");
-
-    String[] paymentOptions = {"Услуги связи", "Домашний интернет", "Рассрочка", "Задолженность"};
-    for (String option : paymentOptions) {
-        WebElement paymentOption = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[1]/section/div/div[1]/div[1]"));
-        paymentOption.click();
-        WebElement phoneNumberField = driver.findElement(By.id("phone_number"));
-        System.out.println("Text in phone number field for " + option + ": " + phoneNumberField.getAttribute("placeholder"));
-        driver.navigate().refresh();
+    @BeforeClass
+    public void setUp() {
+        WebDriverManager.chromedriver().clearDriverCach().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.mts.by/");
     }
-        WebElement servicesPaymentOption = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[1]/section/div/div[1]/div[1]/div[2]"));
-        servicesPaymentOption.click();
-        WebElement phoneNumberInput = driver.findElement(By.id("phone_number"));
-        phoneNumberInput.sendKeys("297777777");
-        WebElement continueButton = driver.findElement(By.xpath("//*[@id=\\\"pay-section\\\"]/div/div/div[2]/section/div/div[1]/div[2]"));
+    @Test()
+    public void testBlock() {
+        driver.get("https://www.mts.by/");
+        servicesLink = driver.findElement(By.linkText("Услуги связи"));
+        servicesLink.click();
+        WebElement mobileLink = driver.findElement(By.linkText("Онлайн пополнение без комиссии"));
+        mobileLink.click();
+        WebElement phoneNumber = driver.findElement(By.id("connetion-phone"));
+        String phoneNumberPlaceholder = phoneNumber.getAttribute("placeholder");
+        Assert.assertEquals(phoneNumberPlaceholder, "Номер абонента");
+        WebElement amountField = driver.findElement(By.id("internet-phone"));
+        String amountPlaceholder = amountField.getAttribute("placeholder");
+        Assert.assertEquals(amountPlaceholder, "Сумма");
+        WebElement emailField = driver.findElement(By.id("internet-email"));
+        String emailPlaceholder = emailField.getAttribute("placeholder");
+        Assert.assertEquals(emailPlaceholder, "Email");
+
+        phoneNumberField.sendKeys("297777777");
+        amountField.sendKeys("10");
+        emailField.sendKeys("testng@example.com");
+        WebElement continueButton = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[1]/div[2]"));
         continueButton.click();
-        WebElement paymentAmountButton = driver.findElement(By.className("SumField"));
-        System.out.println("Payment amount on the button: " + paymentAmountButton.getText());
-        WebElement phoneNumberSummary = driver.findElement(By.id("phone_number"));
-        System.out.println("Phone number summary: " + phoneNumberSummary.getAttribute("value"));
-        WebElement cardNumberField = driver.findElement(By.id("card_number"));
-        System.out.println("Text in card number field: " + cardNumberField.getAttribute("placeholder"));
-        WebElement visaIcon = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[1]/section/div/div[2]/ul/li[1]"));
-        System.out.println("Visa icon is displayed: " + visaIcon.isDisplayed());
-        WebElement mastercardIcon = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[1]/section/div/div[2]/ul/li[4]"));
-        System.out.println("MasterCard icon is displayed: " + mastercardIcon.isDisplayed());
-        driver.quit();
+
+        WebElement visaIcon = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[1]/section/div/div[2]/ul/li[1]/img"));
+        WebElement mastercardIcon = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[1]/section/div/div[2]/ul/li[3]/img"));
+        WebElement belcartIcon = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[1]/section/div/div[2]/ul/li[5]/img"));
+        WebElement mirIcon = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[1]/section/div/div[2]/ul/li[6]/img"));
+
+        Assert.assertTrue(cardNumberField.isDisplayed());
+        Assert.assertTrue(visaIcon.isDisplayed());
+        Assert.assertTrue(mastercardIcon.isDisplayed());
+        Assert.assertTrue(belcartIcon.isDisplayed());
+        Assert.assertTrue(mirIcon.isDisplayed());
+    }
+    @AfterClass
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
         }
     }
+}
