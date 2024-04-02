@@ -9,15 +9,15 @@ public class MainPage {
     @FindBy(xpath = "//*[@id=\"app\"]/div[4]/div/div[1]/form/div[1]/div[1]/div[1]/h1")
     private List<WebElement> productTitles;
     @FindBy(xpath = "//*[@id=\"8194f882-84fa-5e43-cf22-b0e340bd9356\"]/div[3]/div[11]/div[1]/div/div/button[1]")
-    private WebElement addToCartButton;
+    private WebElement addToBasketButton;
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void addToCart(int productIndex) {
+    public void addToBasket(int productIndex) {
         productTitles.get(productIndex).click();
-        addToCartButton.click();
+        addToBasketButton.click();
     }
 }
