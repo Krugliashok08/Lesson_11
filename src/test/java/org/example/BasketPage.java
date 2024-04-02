@@ -13,7 +13,7 @@ public class BasketPage {
     private List<WebElement> productPrices;
     @FindBy(xpath = "//*[@id=\"app\"]/div[4]/div/div[1]/form/div[2]/div/div/div/div[3]/p/span[2]/span")
     private WebElement totalPrice;
-    public CartPage(WebDriver driver) {
+    public BasketPage(WebDriver driver) {
            this.driver = driver;
     PageFactory.initElements(driver, this);
 
