@@ -9,21 +9,24 @@ public class WildberriesTest {
     WebDriver driver;
     MainPage mainPage;
     BasketPage basketPage;
-   @BeforeClass
+
+    @BeforeClass
     public void setUp() {
-        WebDriverManager.chromedriver().clearDriverCach().setup();
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         mainPage = new MainPage(driver);
         basketPage = new BasketPage(driver);
         driver.manage().window().maximize();
         driver.get("https://www.wildberries.ru/");
     }
+
     @Test
     public void testAddToBasket() {
         mainPage.addToBasket(0);
         mainPage.addToBasket(1);
-    @AfterClass
+        @AfterClass
         public void tearDown() {
-        driver.quit();
+            driver.quit();
+        }
     }
 }
