@@ -13,6 +13,8 @@ public class TestPostman {
                 .when()
                 .get("https://postman-echo.com/get?foo1=bar1&foo2=bar2");
         assertEquals(response.getStatusCode(), 200);
+        assertEquals(response.jsonPath().getString("args.foo1"), "bar1");
+        assertEquals(response.jsonPath().getString("args.foo2"), "bar2");
     }
     @Test
     public void testPost() {
